@@ -1,14 +1,18 @@
 """
-Main streamlit backend for setting up various
-pages for the application.
+Main streamlit application backend implementation.
+This will act as the main driver. Other helper streamlit implementations
+will be called during build process.
 """
+
 import streamlit as st
-from streamlit_option_menu import option_menu
 import pandas as pd
+import createNewStash
+from streamlit_option_menu import option_menu
+
 
 with st.sidebar:
-    choose = option_menu("DayZ Stash Management", ["About", "View Stashes", "Share[?]"],
-                         icons=['house', 'kanban','person lines fill'],
+    choose = option_menu("DayZ Stash Management", ["About", "View Stashes", "Add New Stash", "Share[?]"],
+                         icons=['house', 'kanban', 'kanban','person lines fill'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
         "container": {"padding": "5!important", "background-color": "black"},
@@ -23,8 +27,8 @@ if choose == "About":
         st.markdown(""" <style> .font {
         font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
         </style> """, unsafe_allow_html=True)
-        st.markdown('<p class="font">About the App</p>', unsafe_allow_html=True)    
-    
-    st.write("\
-    This appication will assisnt with inventory management for\
-    DayZ.")
+        st.markdown('<p class="font">About the App</p>', unsafe_allow_html=True)
+        st.write('This is the about section. Stuff about the app will go here!')
+
+elif choose == "Add New Stash":
+    createNewStash.app()
