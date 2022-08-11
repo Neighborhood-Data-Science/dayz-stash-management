@@ -28,13 +28,21 @@ def update_item_list():
     """
     item_list = image_info[image_info['Category']==st.session_state.item_Category].loc[:,'item_Name'].tolist()
 
-def update_image():
-    """
-    Update the image based on item selection.
-    """
-    image_link = image_info[image_info['item_Name']==st.session_state.item_Name].loc[:,'image_Link'].tolist()[0]
-    image_request = requests.get(image_link)
-    image = Image.open(BytesIO(image_request.content))
+# def update_image():
+#     """
+#     Update the image based on item selection.
+#     """
+#     image_link = image_info[image_info['item_Name']==st.session_state.item_Name].loc[:,'image_Link'].tolist()[0]
+#     image_request = requests.get(image_link)
+#     image = Image.open(BytesIO(image_request.content))
+
+## Additional code to retrieve and process image for another section
+    #Insert image of item once name is selected
+# if item_list:
+#     image_link = image_info[image_info['item_Name']==select_item].loc[:,'image_Link'].tolist()[0]
+#     image_request = requests.get(image_link)
+#     image = Image.open(BytesIO(image_request.content))
+#     st.image(image, caption='Selected Item')   
 
 def app():
     #Set variables (for now)
@@ -56,15 +64,7 @@ def app():
     #Select item based on category (if checked) otherwise, return all items
     if select_category:
         item_list = image_info[image_info['Category']==select_category].loc[:,'item_Name'].tolist()
-        select_item = st.selectbox('Item',item_list,key='item_Name', on_change = update_image)
-    
-
-    #Insert image of item once name is selected
-    if item_list:
-        image_link = image_info[image_info['item_Name']==select_item].loc[:,'image_Link'].tolist()[0]
-        image_request = requests.get(image_link)
-        image = Image.open(BytesIO(image_request.content))
-        st.image(image, caption='Selected Item')   
+        select_item = st.selectbox('Item',item_list,key='item_Name')
 
     #Enter the number of items to add
     enter_quantity = st.number_input('Enter quantity', min_value=0)
